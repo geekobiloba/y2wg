@@ -1,0 +1,90 @@
+# Don't put YAML start marker,
+# or jsonnet will create the wireguard object inside an array.
+
+wireguard:
+  - name: the_hub
+    address: 10.0.10.1
+    private_key: uEN8u1PiWLKOShhKUbhYAa75BVS4uE3HmViwERrWrEs=
+    peers:
+
+      - name: whitebox - OpenWrt
+        public_key: fwSRXr/rXgB2EBRw/T3blz/ZQtQeUf0Zt4U9vdUr02g=
+        allowed_ips:
+          - 10.0.10.2
+          - 192.168.1.0/24
+
+      - name: blackbox - RouterOS
+        public_key: 2r/caFqq2ibeCEq+vEthaejv/wW9evYPLGmvEBZOi1I=
+        allowed_ips:
+          - 10.0.10.3
+          - 192.168.80.0/24
+          - 192.168.81.0/24
+
+      - name: bluebox - pfSense
+        public_key: UvoQLXsb4Hc3IDd7mfRxYNyTX3ctUi2/VDhW+LXTaiU=
+        allowed_ips:
+          - 10.0.10.4
+          - 172.16.10.0/24
+          - 172.16.11.0/24
+          - 172.16.12.0/24
+
+      - name: redbox - IPFire
+        public_key: l+ialoWS7pRjQ5+9ehJlRc9w96eumAWuzakGQMecFS4=
+        allowed_ips:
+          - 10.0.10.5
+          - 192.168.99.0/24
+
+  - name: whitebox
+    address: 10.0.10.2
+    private_key: aGOymFm8KOUcrdpm+oVoCC6ZIBCh2u7pMaOCcWFZ9Fc=
+    peers:
+      - name: the_hub
+        endpoint_host: my.public.hub:51820
+        public_key: 2hqKn6jnn/8HcW5s0LzxmbFNeHx6O3IZa2fuzsosGko=
+        persistent_keepalive: 25
+        allowed_ips:
+          - 10.0.10.0/28
+          - 192.168.80.0/24
+          - 172.16.10.0/24
+          - 172.16.11.0/24
+          - 172.16.12.0/24
+
+  - name: blackbox
+    address: 10.0.10.3
+    private_key: UCSGCJ584aVTeE+Wm9kx8B9/gCcMv5sb+dsrAvmmL1s=
+    peers:
+      - name: the_hub
+        endpoint_host: my.public.hub:51820
+        public_key: 2hqKn6jnn/8HcW5s0LzxmbFNeHx6O3IZa2fuzsosGko=
+        allowed_ips:
+          - 10.0.10.0/28
+          - 192.168.1.0/24
+          - 192.168.99.0/24
+
+  - name: bluebox
+    address: 10.0.10.4
+    private_key: sFmN6ygBaFsVdti4br7okQ05SluYIrnj4hIMBFko+W0=
+    peers:
+      - name: the_hub
+        endpoint_host: my.public.hub:51820
+        public_key: 2hqKn6jnn/8HcW5s0LzxmbFNeHx6O3IZa2fuzsosGko=
+        allowed_ips:
+          - 10.0.10.0/28
+          - 192.168.1.0/24
+          - 192.168.80.0/24
+          - 192.168.81.0/24
+          - 192.168.99.0/24
+
+  - name: redbox
+    address: 10.0.10.5
+    private_key: 8KtCGwEvQHsFwX+oilZRSI2lG51/PmLNhaLMmHeWWkQ=
+    peers:
+      - name: the_hub
+        endpoint_host: my.public.hub:51820
+        public_key: 2hqKn6jnn/8HcW5s0LzxmbFNeHx6O3IZa2fuzsosGko=
+        persistent_keepalive: 25
+        allowed_ips:
+          - 10.0.10.0/28
+          - 192.168.1.0/24
+          - 192.168.80.0/24
+
